@@ -6,6 +6,7 @@ import TrailingNode from "../extensions/TrailingNode";
 import Extension from "../lib/Extension";
 import Bold from "../marks/Bold";
 import Code from "../marks/Code";
+import Colored from "../marks/Colored";
 import Comment from "../marks/Comment";
 import Highlight from "../marks/Highlight";
 import Italic from "../marks/Italic";
@@ -104,6 +105,7 @@ export const richExtensions: Nodes = [
   Heading,
   HorizontalRule,
   Highlight,
+  Colored,
   TemplatePlaceholder,
   Math,
   MathBlock,

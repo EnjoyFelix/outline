@@ -95,6 +95,7 @@ export default function useDictionary() {
       video: t("Video"),
       untitled: t("Untitled"),
       none: t("None"),
+      color: t("Color"),
     }),
     [t]
   );

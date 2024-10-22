@@ -21,6 +21,7 @@ import {
 import { EditorState } from "prosemirror-state";
 import * as React from "react";
 import styled from "styled-components";
+import Colored from "@shared/editor/marks/Colored";
 import Highlight from "@shared/editor/marks/Highlight";
 import { getMarksBetween } from "@shared/editor/queries/getMarksBetween";
 import { isInCode } from "@shared/editor/queries/isInCode";
@@ -47,6 +48,12 @@ export default function formattingMenuItems(
     state.selection.to,
     state
   ).find(({ mark }) => mark.type.name === "highlight");
+
+  const colored = getMarksBetween(
+    state.selection.from,
+    state.selection.to,
+    state
+  ).find(({ mark }) => mark.type.name === "colored");
 
   return [
     {
@@ -107,6 +114,28 @@ export default function formattingMenuItems(
           label: Highlight.colorNames[index],
           icon: <CircleIcon retainColor color={color} />,
           active: isMarkActive(schema.marks.highlight, { color }),
+          attrs: { color },
+        })),
+      ],
+    },
+    {
+      tooltip: dictionary.color,
+      icon: <CircleIcon color={colored?.mark.attrs.color ?? "#000000"} />,
+      active: () => !!colored,
+      visible: !isCode && (!isMobile || !isEmpty),
+      children: [
+        {
+          name: "colored",
+          label: "Primary",
+          icon: <CircleIcon retainColor color={"primary"} />,
+          active: isMarkActive(schema.marks.colored, { color: "primary" }),
+          attrs: { color: "primary" },
+        },
+        ...Colored.colors.map((color, index) => ({
+          name: "colored",
+          label: Colored.colorNames[index],
+          icon: <CircleIcon retainColor color={color} />,
+          active: isMarkActive(schema.marks.colored, { color }),
           attrs: { color },
         })),
       ],
